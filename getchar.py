@@ -1,3 +1,9 @@
+# This module allows a single key press to be captured. 
+# It's useful for writing games in Python.
+#
+# Code comes from the Python cookbook.
+# I have changed the Unix version to cause program exit if ctrl-c or ctrl-d is pressed.
+
 import sys
 
 class _Getch:
