@@ -23,7 +23,7 @@ class _GetchUnix:
         try:
             tty.setraw(sys.stdin.fileno())
             ch = sys.stdin.read(1)
-	    if ord(ch) == 27: sys.exit(0)
+	    if ord(ch) == 4 or ord(ch) == 3: sys.exit(0)
 	finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
         return ch
