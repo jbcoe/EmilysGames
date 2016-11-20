@@ -1,41 +1,35 @@
 import sys
-import subprocess
 import random
-from getchar import *
-
-#
-# This program has been written to run on raspberry pi so probably runs only on Linux.
-# You will need figlet installed to print big letters to the console.
-# To install figlet run: 
-# sudo apt-get install figlet
-#
 
 words = 'cat cot top pot tin tan not pat put pit tip inn mop dog got'.split()
+
+choices = 3
 
 def main():
     score = 0
     while score < 100:
         
         word = random.choice(words)
-        others = random.sample([w for w in words if w is not word], 5)
+        others = random.sample([w for w in words if w is not word], choices)
 
         print "================================================"
-        print "Find the best match for \"{}\"".format(word)
+        print "Find a word like \"{}\"".format(word)
         print "================================================"
 
         for i,w in enumerate(others):
             print "{}: {}".format(i,w)
-        print "================================================"
+            print "   {}\n".format(word)
+	print "================================================"
         
         while True:
-            input = getch() 
+            input = raw_input() 
             try:
                 index = int(input)
                 if index > len(others) or index < 0:
                     raise Exception('out of range input')
                 w = others[index]
                 common = []
-                for x,y in zip(word, w):
+                for x,y in zip(sorted(word), sorted(w)):
                     if x == y: common.append(x)
                 points = len(common)
                 
