@@ -18,7 +18,6 @@ def main():
 
         for i,w in enumerate(others):
             print "{}: {}".format(i,w)
-            print "   {}\n".format(word)
 	print "================================================"
         
         while True:
