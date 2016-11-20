@@ -28,8 +28,8 @@ def main():
                     raise Exception('out of range input')
                 w = others[index]
                 common = []
-                for x,y in zip(sorted(word), sorted(w)):
-                    if x == y: common.append(x)
+                for x in w:
+                    if x in word: common.append(x)
                 points = len(common)
                 
                 print "\"{}\" and \"{}\" have \"{}\" in common".format(word, w, ",".join(common))
