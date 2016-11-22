@@ -1,36 +1,35 @@
 import sys
 import random
-
-_words = 'cat cot top pot tin tan not pat put pit tip inn mop dog got'.split()
-_choices = 3
-_score = 0
+import argparse
 
 
-def generate_word_and_matches():
-    word = random.choice(_words)
-    others = random.sample([w for w in _words if w is not word], _choices)
-    return word, others
+class Game:
+
+    def __init__(self):
+        self._words = 'cat cot top pot tin tan not pat put pit tip inn mop dog got'.split()
+        self._choices = 3
+        self._score = 0
+
+    def generate_word_and_matches(self):
+        word = random.choice(self._words)
+        others = random.sample(
+            [w for w in self._words if w is not word], self._choices)
+        return word, others
+
+    def get_score(self):
+        return self._score
+
+    def reset_score(self):
+        self._score = 0
+
+    def increase_score(self, points):
+        self._score = self._score + points
 
 
 def calculate_points(word, match):
     common = [w for w in match if w in word]
     points = len(common)
     return points, common
-
-
-def get_score():
-    global _score
-    return _score
-
-
-def reset_score():
-    global _score
-    _score = 0
-
-
-def increase_score(points):
-    global _score
-    _score = _score + points
 
 
 def _index_input(r, options):
@@ -45,9 +44,10 @@ def _index_input(r, options):
 
 
 def main():
-    reset_score()
-    while get_score() < 100:
-        word, others = generate_word_and_matches()
+    g = Game()
+    g.reset_score()
+    while g.get_score() < 100:
+        word, others = g.generate_word_and_matches()
 
         print "================================================"
         print "Find a word like \"{}\"".format(word)
@@ -63,12 +63,12 @@ def main():
             index = _index_input(raw_input, others)
         w = others[index]
         points, common = calculate_points(word, w)
-        increase_score(points)
+        g.increase_score(points)
 
         print "\"{}\" and \"{}\" have \"{}\" in common".format(word, w, ",".join(common))
         print "You score {} new points".format(points)
         print "================================================"
-        print "Your score is {}".format(get_score())
+        print "Your score is {}".format(g.get_score())
 
     print "================================================"
     print " *** CONGRATULATIONS Emily! You win! ***"
